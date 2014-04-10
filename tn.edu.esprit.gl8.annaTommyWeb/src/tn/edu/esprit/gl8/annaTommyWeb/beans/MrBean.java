@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import tn.edu.esprit.gl8.annaTommyEJB.domain.Admin;
 import tn.edu.esprit.gl8.annaTommyEJB.domain.User;
 import tn.edu.esprit.gl8.annaTommyEJB.services.interfaces.UserServicesLocal;
 
@@ -29,6 +30,25 @@ public class MrBean implements Serializable {
 	public String doAddUser() {
 		userServicesLocal.addUser(user);
 		return "";
+
+	}
+
+	public String doLogin() {
+		User userFound = userServicesLocal.login(user.getLogin(),
+				user.getPassword());
+		if (userFound != null) {
+			if (userFound instanceof Admin) {
+				user = userFound;
+				return "/pages/admin/admin.jsf";
+
+			} else {
+				user = userFound;
+				return "/pages/player/room.jsf";
+			}
+
+		} else {
+			return "error.jsf";
+		}
 
 	}
 

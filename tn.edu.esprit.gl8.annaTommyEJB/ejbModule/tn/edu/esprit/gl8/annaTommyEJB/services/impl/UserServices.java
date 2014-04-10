@@ -3,6 +3,7 @@ package tn.edu.esprit.gl8.annaTommyEJB.services.impl;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import tn.edu.esprit.gl8.annaTommyEJB.domain.User;
 import tn.edu.esprit.gl8.annaTommyEJB.services.interfaces.UserServicesLocal;
@@ -35,7 +36,19 @@ public class UserServices implements UserServicesRemote, UserServicesLocal {
 	}
 
 	public User login(String login, String password) {
-		return null;
+		User userFound = null;
+		String jpql = "select u from User u where u.login=:param1 and u.password=:param2";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("param1", login);
+		query.setParameter("param2", password);
+
+		try {
+			userFound = (User) query.getSingleResult();
+		} catch (Exception e) {
+			System.err.println("please try again ...");
+		}
+
+		return userFound;
 	}
 
 }
