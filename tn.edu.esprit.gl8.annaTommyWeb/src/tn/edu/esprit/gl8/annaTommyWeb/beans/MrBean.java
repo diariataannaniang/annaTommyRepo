@@ -1,12 +1,14 @@
 package tn.edu.esprit.gl8.annaTommyWeb.beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import tn.edu.esprit.gl8.annaTommyEJB.domain.Admin;
+import tn.edu.esprit.gl8.annaTommyEJB.domain.Player;
 import tn.edu.esprit.gl8.annaTommyEJB.domain.User;
 import tn.edu.esprit.gl8.annaTommyEJB.services.interfaces.UserServicesLocal;
 
@@ -21,16 +23,24 @@ public class MrBean implements Serializable {
 
 	// the model
 	private User user = new User();
-
+	private Player player = new Player();
+	private List<Player> players;
+	private boolean formOneVisibility = false;
 	// injection of the proxy
 	@EJB
 	private UserServicesLocal userServicesLocal;
 
 	// the methods
 	public String doAddUser() {
-		userServicesLocal.addUser(user);
+		userServicesLocal.addUser(player);
 		return "";
 
+	}
+
+	public String modifyVisibility() {
+		
+		formOneVisibility = true;
+		return "";
 	}
 
 	public String doLogin() {
@@ -58,6 +68,32 @@ public class MrBean implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public List<Player> getPlayers() {
+		players = userServicesLocal.findAllPlayers();
+
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+	public boolean isFormOneVisibility() {
+		return formOneVisibility;
+	}
+
+	public void setFormOneVisibility(boolean formOneVisibility) {
+		this.formOneVisibility = formOneVisibility;
 	}
 
 }

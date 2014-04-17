@@ -65,4 +65,11 @@ public class TestRealPlatform {
 
 	}
 
+	@Test
+	public void itShouldFindAllPlayers() {
+
+		Assert.assertEquals(2, userServicesRemote.findAllPlayers().size());
+
+	}
+
 }

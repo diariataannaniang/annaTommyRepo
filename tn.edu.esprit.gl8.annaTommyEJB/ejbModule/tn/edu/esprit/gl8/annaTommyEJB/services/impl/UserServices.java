@@ -1,10 +1,13 @@
 package tn.edu.esprit.gl8.annaTommyEJB.services.impl;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import tn.edu.esprit.gl8.annaTommyEJB.domain.Player;
 import tn.edu.esprit.gl8.annaTommyEJB.domain.User;
 import tn.edu.esprit.gl8.annaTommyEJB.services.interfaces.UserServicesLocal;
 import tn.edu.esprit.gl8.annaTommyEJB.services.interfaces.UserServicesRemote;
@@ -49,6 +52,32 @@ public class UserServices implements UserServicesRemote, UserServicesLocal {
 		}
 
 		return userFound;
+	}
+
+	@Override
+	public List<Player> findAllPlayers() {
+		return entityManager.createQuery("select p from Player p")
+				.getResultList();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
